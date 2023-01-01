@@ -1,0 +1,12 @@
+.background {
+  margin: 0;
+  background-image: url("../img/profileBack.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 300px;
+  letter-spacing: 1px;
+}
+
+.btncontainer {
+  padding-top: 150px;
+}
