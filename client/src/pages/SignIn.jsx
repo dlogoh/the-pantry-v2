@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useAuthContext } from "../context/AuthContext";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { API } from "../constant";
-import { setToken } from "../helpers";
+import { setToken, storeUser } from "../helpers";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsLoading, setError } from "../features/auth/authSlice";
 
 import {
   Alert,
@@ -18,14 +19,14 @@ import {
 } from "antd";
 
 const SignIn = () => {
-  const { setUser } = useAuthContext();
+  const dispatch = useDispatch();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading, error } = useSelector((store) => store.auth);
 
-  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const onFinish = async (values) => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     try {
       const value = {
         identifier: values.email,
@@ -47,7 +48,7 @@ const SignIn = () => {
         setToken(data.jwt);
 
         // set the user
-        setUser(data.user);
+        storeUser(data.user);
 
         message.success(`Welcome back ${data.user.username}`);
 
@@ -56,9 +57,9 @@ const SignIn = () => {
       }
     } catch (error) {
       console.error(error);
-      setError(error?.message ?? "Something went wrong...");
+      dispatch(setError(error?.message ?? "Something went wrong..."));
     } finally {
-      setIsLoading(false);
+      dispatch(setIsLoading(false));
     }
   };
 

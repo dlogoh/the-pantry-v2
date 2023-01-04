@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import { useAuthContext } from "../context/AuthContext";
+import React from "react";
+import { getUser, getEmail } from "../helpers";
 
 import "./Profile.css";
 
 const Profile = () => {
-  const { user } = useAuthContext();
+  const user = getUser();
+  const email = getEmail();
 
   return (
     <div>
@@ -17,7 +18,7 @@ const Profile = () => {
       /> */}
         <h5 className='pt-5 text-center text-light'>{`${user}`}</h5>
         <div className='container d-flex flex-column text-light justify-content-center align-items-center'>
-          <h5>{`${user}`}</h5>
+          <h5>{`${email}`}</h5>
           <div className='btncontainer container d-flex justify-content-center flex-end'>
             <button className='btn btn-outline-light text-light px-2 mx-2'>
               My Recipes
