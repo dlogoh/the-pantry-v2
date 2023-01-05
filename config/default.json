@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://dlogoh:dlogoh@thepantry.ihau73f.mongodb.net/?retryWrites=true&w=majority",
+  "jwtSecret": "bigpalwithcheese"
+}
