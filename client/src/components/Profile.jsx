@@ -1,12 +1,8 @@
 import React from "react";
-import { getUser, getEmail } from "../helpers";
 
 import "./Profile.css";
 
 const Profile = () => {
-  const user = getUser();
-  const email = getEmail();
-
   return (
     <div>
       <div className='background'>
@@ -16,9 +12,9 @@ const Profile = () => {
         className='img-fluid'
         style={{ height: "250px", width: "100%" }}
       /> */}
-        <h5 className='pt-5 text-center text-light'>{`${user}`}</h5>
+        <h5 className='pt-5 text-center text-light'>hi</h5>
         <div className='container d-flex flex-column text-light justify-content-center align-items-center'>
-          <h5>{`${email}`}</h5>
+          <h5>hi</h5>
           <div className='btncontainer container d-flex justify-content-center flex-end'>
             <button className='btn btn-outline-light text-light px-2 mx-2'>
               My Recipes

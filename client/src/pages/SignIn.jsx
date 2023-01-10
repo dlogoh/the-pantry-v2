@@ -1,126 +1,89 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { API } from "../constant";
-import { setToken, storeUser } from "../helpers";
-import { useDispatch, useSelector } from "react-redux";
-import { setIsLoading, setError } from "../features/auth/authSlice";
-
-import {
-  Alert,
-  Button,
-  Card,
-  Col,
-  Form,
-  Input,
-  message,
-  Row,
-  Spin,
-  Typography,
-} from "antd";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SignIn = () => {
-  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-  const { isLoading, error } = useSelector((store) => store.auth);
+  const { email, password } = formData;
 
-  const navigate = useNavigate();
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onFinish = async (values) => {
-    dispatch(setIsLoading(true));
-    try {
-      const value = {
-        identifier: values.email,
-        password: values.password,
-      };
-      const response = await fetch(`${API}/auth/local`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(value),
-      });
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    console.log("success");
+    // const newUser = {
+    //   name,
+    //   email,
+    //   password,
+    // };
 
-      const data = await response.json();
-      if (data?.error) {
-        throw data?.error;
-      } else {
-        // set the token
-        setToken(data.jwt);
+    // try {
+    //   const config = {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   };
 
-        // set the user
-        storeUser(data.user);
+    //   const body = JSON.stringify(newUser);
 
-        message.success(`Welcome back ${data.user.username}`);
+    //   const res = await axios.post("/api/users", body, config);
 
-        // navigate("/profile", { replace: true });
-        window.location.replace("http://localhost:3000/profile");
-      }
-    } catch (error) {
-      console.error(error);
-      dispatch(setError(error?.message ?? "Something went wrong..."));
-    } finally {
-      dispatch(setIsLoading(false));
-    }
+    //   console.log(res.data);
+    // } catch (error) {
+    //   console.error(error.response.data);
+    // }
   };
 
   return (
     <>
-      <div className='container w-75 my-5'>
-        <Row align='middle'>
-          <Col span={24} offset={0}>
-            <Card title='Sign In'>
-              {error ? (
-                <Alert
-                  className='alert_error'
-                  message={error}
-                  type='error'
-                  closable
-                  afterClose={() => setError("")}
-                />
-              ) : null}
-              <Form
-                name='basic'
-                layout='vertical'
-                onFinish={onFinish}
-                autoComplete='off'
-              >
-                <Form.Item
-                  label='Email'
-                  name='email'
-                  rules={[
-                    {
-                      required: true,
-                      type: "email",
-                    },
-                  ]}
-                >
-                  <Input placeholder='Email address' />
-                </Form.Item>
-
-                <Form.Item
-                  label='Password'
-                  name='password'
-                  rules={[{ required: true }]}
-                >
-                  <Input.Password placeholder='Password' />
-                </Form.Item>
-
-                <Form.Item>
-                  <Button
-                    type='primary'
-                    htmlType='submit'
-                    className='btn btn-primary py-1'
-                  >
-                    Login {isLoading && <Spin size='small' />}
-                  </Button>
-                </Form.Item>
-              </Form>
-              <Typography.Paragraph className='form_help_text'>
-                Don't have an account? <Link to='/signup'>Sign Up</Link>
-              </Typography.Paragraph>
-            </Card>
-          </Col>
-        </Row>
+      <div className='container'>
+        <h2 className='text-center my-5'>Sign In</h2>
+        <form onSubmit={(e) => onSubmit(e)}>
+          <div className='my-4'>
+            <label htmlFor='email' className='form-label'>
+              Email address
+            </label>
+            <input
+              type='email'
+              className='form-control'
+              id='email'
+              name='email'
+              value={email}
+              onChange={(e) => onChange(e)}
+              aria-describedby='emailHelp'
+              placeholder='example@email.com'
+              required
+            />
+          </div>
+          <div className='my-4'>
+            <label htmlFor='password' className='form-label'>
+              Password
+            </label>
+            <input
+              type='password'
+              className='form-control'
+              id='password'
+              name='password'
+              value={password}
+              onChange={(e) => onChange(e)}
+              placeholder='Must be at least 6 characters'
+              required
+            />
+          </div>
+          <button type='submit' className='btn btn-primary my-4'>
+            Log In
+          </button>
+        </form>
+        <h5 className='my-5 py-5'>
+          Don't have an account?{" "}
+          <Link to='/signup' className='text-primary'>
+            Sign Up
+          </Link>
+        </h5>
       </div>
     </>
   );
