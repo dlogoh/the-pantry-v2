@@ -16,6 +16,10 @@ function Register() {
     password2: "",
   });
 
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
   const { name, email, password, password2 } = formData;
 
   // Redux

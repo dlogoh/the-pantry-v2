@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { login } from "../features/auth/auth";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const dispatch = useDispatch();
 
   const { email, password } = formData;
 
@@ -14,7 +18,7 @@ const SignIn = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("success");
+    dispatch(login(email, password));
     // const newUser = {
     //   name,
     //   email,
