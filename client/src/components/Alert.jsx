@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import "./Alert.css";
 
 const Alert = () => {
-  const { alertType, msg, id } = useSelector((state) => state.alert);
+  const { alertType, msg } = useSelector((state) => state.alert);
 
   if (alertType === "danger") {
     return (

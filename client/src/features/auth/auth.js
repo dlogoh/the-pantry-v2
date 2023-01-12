@@ -9,10 +9,11 @@ export const loadUser = () => async (dispatch) => {
   }
 
   try {
-    const res = await axios.post("/api/auth");
+    const res = await axios.get("/api/auth");
 
     return dispatch(userLoaded(res.data));
   } catch (error) {
+    console.error(error);
     dispatch(authFail());
   }
 };
@@ -31,7 +32,6 @@ export const login = (email, password) => async (dispatch) => {
     const res = await axios.post("/api/auth", body, config);
 
     dispatch(loginSuccess(res.data));
-    // userLoaded
   } catch (error) {
     console.error(error.msg);
     dispatch(loginFail());

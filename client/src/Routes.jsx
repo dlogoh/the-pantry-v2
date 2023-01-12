@@ -7,7 +7,8 @@ import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
-// import Profile from "./components/Profile";
+import Dashboard from "./components/dashboard/Dashboard";
+import PrivateRoute from "./components/routing/PrivateRoute";
 
 export default function AppRouter() {
   return (
@@ -54,24 +55,18 @@ export default function AppRouter() {
               </>
             }
           />
-          {/* <Route
-              path='/profile'
-              element={
-                getToken() ? (
-                  <>
-                    <Navbar />
-                    <Profile />
-                    <Footer />
-                  </>
-                ) : (
-                  <>
-                    <Navbar />
-                    <SignIn />
-                    <Footer />
-                  </>
-                )
-              }
-            /> */}
+          <Route
+            path='/dashboard'
+            element={
+              <>
+                <PrivateRoute>
+                  <Navbar />
+                  <Dashboard />
+                  <Footer />
+                </PrivateRoute>
+              </>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

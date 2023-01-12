@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { login } from "../features/auth/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Navigate } from "react-router-dom";
+import { login, loadUser } from "../features/auth/auth";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +9,8 @@ const SignIn = () => {
     password: "",
   });
 
+  // Redux
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const { email, password } = formData;
@@ -19,28 +21,13 @@ const SignIn = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     dispatch(login(email, password));
-    // const newUser = {
-    //   name,
-    //   email,
-    //   password,
-    // };
-
-    // try {
-    //   const config = {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   };
-
-    //   const body = JSON.stringify(newUser);
-
-    //   const res = await axios.post("/api/users", body, config);
-
-    //   console.log(res.data);
-    // } catch (error) {
-    //   console.error(error.response.data);
-    // }
+    dispatch(loadUser());
   };
+
+  // Redirect if authenticated
+  if (isAuthenticated) {
+    return <Navigate to='/dashboard' replace={true} />;
+  }
 
   return (
     <>

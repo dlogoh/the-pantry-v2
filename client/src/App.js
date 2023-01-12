@@ -15,6 +15,7 @@ export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadUser());
+    // eslint-disable-next-line
   }, []);
 
   return (
