@@ -49,7 +49,29 @@ router.post(
     if (myRecipes) profileFields.myRecipes = myRecipes;
     if (likes) profileFields.likes = likes;
 
-    res.send(profileFields);
+    try {
+      let profile = await Profile.findOne({ user: req.user.id });
+
+      if (profile) {
+        // Update
+        profile = await Profile.findOneAndUpdate(
+          { user: req.user.id },
+          { $set: profileFields },
+          { new: true }
+        );
+
+        return res.json(profile);
+      }
+
+      // Create
+      profile = new Profile(profileFields);
+
+      await profile.save();
+      res.json(profile);
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Server Error");
+    }
   }
 );
 

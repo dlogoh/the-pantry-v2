@@ -1,7 +1,7 @@
 import React from "react";
 import AppRouter from "./Routes";
 import setAuthToken from "./utils/setAuthToken";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./features/auth/auth";
 
 import "./index.css";
@@ -13,8 +13,10 @@ if (localStorage.token) {
 
 export default function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(loadUser());
+    console.log("i fire once");
     // eslint-disable-next-line
   }, []);
 

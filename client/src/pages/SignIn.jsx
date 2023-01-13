@@ -21,12 +21,11 @@ const SignIn = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     dispatch(login(email, password));
-    dispatch(loadUser());
   };
 
   // Redirect if authenticated
   if (isAuthenticated) {
-    return <Navigate to='/dashboard' replace={true} />;
+    return <Navigate to='/dashboard' />;
   }
 
   return (

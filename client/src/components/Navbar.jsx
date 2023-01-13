@@ -19,6 +19,11 @@ export default function Navbar() {
         </Link>
       </li>
       <li className='nav-item'>
+        <Link to='/dashboard' className='nav-link active' aria-current='page'>
+          Dashboard
+        </Link>
+      </li>
+      <li className='nav-item'>
         <Link
           to='/'
           className='nav-link'

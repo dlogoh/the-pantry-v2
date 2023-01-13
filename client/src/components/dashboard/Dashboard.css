@@ -1,0 +1,11 @@
+.profile-back {
+  background-image: url("../../img/profileBack.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 300px;
+}
+
+.dash-container {
+  height: 47vh;
+}
