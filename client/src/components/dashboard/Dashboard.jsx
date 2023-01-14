@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getCurrentProfile } from "../../features/profile/profile";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "../../features/auth/auth";
@@ -6,13 +6,49 @@ import { loadUser } from "../../features/auth/auth";
 import "./Dashboard.css";
 
 const Dashboard = () => {
+  const [flip, setFlip] = useState(true);
+
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(loadUser());
     dispatch(getCurrentProfile());
-  }, [dispatch]);
+    // dispatch(loadUser());
+    // not sure if i need above code or not
 
+    console.log("I also fire once");
+  }, []);
+
+  const { profile, loading } = useSelector((state) => state.profile);
   const { user } = useSelector((state) => state.auth);
+
+  let displayLikes;
+  let displayRecipes;
+
+  if (!loading) {
+    displayLikes = profile.likes.map((item) => {
+      return (
+        <li key={item.toString()} className='list-group-item fs-5'>
+          {item}
+        </li>
+      );
+    });
+
+    displayRecipes = profile.myRecipes.map((item) => {
+      return (
+        <li key={item.toString()} className='list-group-item fs-5'>
+          {item}
+        </li>
+      );
+    });
+  }
+
+  const handleLike = () => {
+    setFlip(true);
+  };
+
+  const handleRecipe = () => {
+    setFlip(false);
+  };
+
   return (
     <div>
       <div className='container profile-back'>
@@ -23,8 +59,23 @@ const Dashboard = () => {
       </div>
       <div className='container dash-container'>
         <div className='container d-flex justify-content-center align-items-center mt-3'>
-          <button className='btn btn-secondary mx-3'>Liked Recipes</button>
-          <button className='btn btn-secondary mx-3 px-4'>My Recipes</button>
+          <button
+            className='btn btn-secondary mx-3'
+            onClick={(e) => handleLike(e)}
+          >
+            Liked Recipes
+          </button>
+          <button
+            className='btn btn-secondary mx-3 px-4'
+            onClick={(e) => handleRecipe(e)}
+          >
+            My Recipes
+          </button>
+        </div>
+        <div className='container'>
+          <ul className='list-group bg-primary mt-4'>
+            {flip ? displayLikes : displayRecipes}
+          </ul>
         </div>
       </div>
     </div>
