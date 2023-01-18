@@ -11,14 +11,17 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCurrentProfile());
-    // dispatch(loadUser());
+    dispatch(loadUser());
     // not sure if i need above code or not
 
     console.log("I also fire once");
   }, []);
 
-  const { profile, loading } = useSelector((state) => state.profile);
+  // ***** Current Issue *****
+  // For some reason the useSelector for the user.avatar in the auth store is NOT rendering immediately after a user logs in.
+
   const { user } = useSelector((state) => state.auth);
+  const { profile, loading } = useSelector((state) => state.profile);
 
   let displayLikes;
   let displayRecipes;

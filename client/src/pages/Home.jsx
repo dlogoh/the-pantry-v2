@@ -58,7 +58,7 @@ export default function Home() {
       <h1 className='text-center my-5'>Are you ready to get started?</h1>
       <div className='container d-flex justify-content-center mb-5'>
         <button className='btn btn-primary mx-3'>
-          <Link to='/register' className='text-white text-decoration-none'>
+          <Link to='/signup' className='text-white text-decoration-none'>
             Sign Up
           </Link>
         </button>
