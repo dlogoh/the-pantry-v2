@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { login, loadUser } from "../features/auth/auth";
+import setAuthToken from "../utils/setAuthToken";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -9,8 +10,12 @@ const SignIn = () => {
     password: "",
   });
 
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
   // Redux
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const { email, password } = formData;
@@ -18,13 +23,14 @@ const SignIn = () => {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
+    dispatch(loadUser());
   };
 
   // Redirect if authenticated
-  if (isAuthenticated) {
+  if (isAuthenticated && user) {
     return <Navigate to='/dashboard' />;
   }
 

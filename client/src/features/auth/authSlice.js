@@ -18,7 +18,7 @@ const authSlice = createSlice({
     },
     loginSuccess: (state, { payload }) => {
       console.log(payload.token);
-      localStorage.setItem("token", payload.token);
+      localStorage.setItem("token", `${payload.token}`);
       state.token = payload.token;
       state.isAuthenticated = true;
       state.loading = false;
@@ -52,6 +52,10 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.loading = false;
     },
+    authCheck: (state) => {
+      state.isAuthenticated = false;
+      state.loading = false;
+    },
   },
 });
 
@@ -60,6 +64,7 @@ export const {
   registerSuccess,
   userLoaded,
   authFail,
+  authCheck,
   loginFail,
   loginSuccess,
   logout,
