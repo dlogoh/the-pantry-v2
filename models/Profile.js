@@ -6,9 +6,23 @@ const ProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
-  myRecipes: {
-    type: [],
-  },
+  myRecipes: [
+    {
+      title: {
+        type: String,
+      },
+      category: {
+        type: String,
+      },
+      likes: {
+        type: [],
+      },
+      date: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
   likes: {
     type: [],
   },
