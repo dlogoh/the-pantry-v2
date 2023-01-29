@@ -42,6 +42,8 @@ const Dashboard = () => {
   let displayLikes;
   let displayRecipes;
 
+  // Add delete recipe and likes functions
+
   if (!loading) {
     displayLikes = profile.likes.map((item) => {
       return (
