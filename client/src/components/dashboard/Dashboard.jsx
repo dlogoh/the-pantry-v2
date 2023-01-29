@@ -29,20 +29,10 @@ const Dashboard = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-
-    // try {
-    //   const res = await axios.get("/api/profile/myRecipes/");
-
-    //   console.log(res.data);
-    // } catch (error) {
-    //   console.error(error);
-    // }
   };
 
   let displayLikes;
   let displayRecipes;
-
-  // Add delete recipe and likes functions
 
   if (!loading) {
     displayLikes = profile.likes.map((item) => {
