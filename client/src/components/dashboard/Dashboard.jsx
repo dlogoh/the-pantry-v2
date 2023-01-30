@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getCurrentProfile } from "../../features/profile/profile";
 import { useDispatch, useSelector } from "react-redux";
+import { CSSTransition } from "react-transition-group";
 import { loadUser } from "../../features/auth/auth";
-import {
-  openModal,
-  closeModal,
-} from "../../features/recipeModal/recipeModalSlice";
+import { openModal } from "../../features/recipeModal/recipeModalSlice";
 import RecipeModal from "../recipeModal/RecipeModal";
-import axios from "axios";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
@@ -83,7 +81,9 @@ const Dashboard = () => {
 
   return (
     <div>
-      {isOpen ? <RecipeModal /> : <></>}
+      <CSSTransition in={isOpen} timeout={1000} classNames='t'>
+        {isOpen ? <RecipeModal /> : <div></div>}
+      </CSSTransition>
       <div className='container profile-back'>
         <div className='d-flex flex-column justify-content-center align-items-center'>
           <img src={`${user.avatar}`} alt='' className='rounded-circle mt-3' />

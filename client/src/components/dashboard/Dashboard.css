@@ -10,3 +10,29 @@
 .dash-container {
   height: 42vh;
 }
+
+.t-exit {
+  opacity: 1;
+}
+
+.t-exit-active {
+  opacity: 0;
+  transition: all ease 1s;
+}
+
+.t-exit-done {
+  opacity: 0;
+}
+
+.t-enter {
+  opacity: 0;
+}
+
+.t-enter-active {
+  opacity: 1;
+  transition: all ease 1s;
+}
+
+.t-enter-done {
+  opacity: 1;
+}

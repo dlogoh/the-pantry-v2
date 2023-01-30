@@ -1,0 +1,41 @@
+.modal-custom {
+  opacity: 1;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all ease 1s;
+}
+
+.toggle-opacity {
+  opacity: 1;
+}
+
+.modal-content-custom {
+  width: 90%;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.modal-head,
+.modal-footer-custom {
+  padding: 10px;
+}
+
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-title-custom {
+  margin-top: 20px;
+  width: 100%;
+  border-bottom: coral 2px solid;
+  font-weight: 400;
+}
