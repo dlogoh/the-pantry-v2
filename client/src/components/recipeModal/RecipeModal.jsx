@@ -13,6 +13,8 @@ function RecipeModal() {
     dispatch(closeModal());
   };
 
+  // *** USE tiptap package to take users input for recipe directions
+
   return (
     <div className='modal-custom'>
       <div className='modal-content-custom'>
