@@ -1,21 +1,39 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { closeModal } from "../../features/recipeModal/recipeModalSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  closeModal,
+  nextPage,
+  prevPage,
+  resetPage,
+} from "../../features/recipeModal/recipeModalSlice";
+import Tiptap from "../tiptap/Tiptap";
 
 import "./RecipeModal.css";
 
 function RecipeModal() {
   const dispatch = useDispatch();
+  const { page } = useSelector((state) => state.recipeModal);
 
   const onClose = (e) => {
     e.preventDefault();
 
     dispatch(closeModal());
+    dispatch(resetPage());
   };
 
-  // *** USE tiptap package to take users input for recipe directions
+  const onNextPage = (e) => {
+    e.preventDefault();
 
-  return (
+    dispatch(nextPage());
+  };
+
+  const onPrevPage = (e) => {
+    e.preventDefault();
+
+    dispatch(prevPage());
+  };
+
+  const page1 = (
     <div className='modal-custom'>
       <div className='modal-content-custom'>
         <div className='modal-head'>
@@ -24,11 +42,13 @@ function RecipeModal() {
             type='button'
             className='btn-close'
             aria-label='Close'
+            onClick={(e) => onClose(e)}
           ></button>
         </div>
         <div className='modal-body-custom'>
           <form>
             <div className='mb-3'>
+              <p className='ms-3 mb-4'>First, a little information:</p>
               <label htmlFor='title' className='form-label ms-3'>
                 Title
               </label>
@@ -74,6 +94,7 @@ function RecipeModal() {
                 Private
               </label>
             </div>
+            {/* <Tiptap /> */}
           </form>
         </div>
         <div className='modal-footer-custom'>
@@ -84,13 +105,57 @@ function RecipeModal() {
           >
             Close
           </button>
-          <button type='button' className='btn btn-primary'>
-            Submit
+          <button
+            type='button'
+            className='btn btn-primary ms-4 px-4'
+            onClick={(e) => onNextPage(e)}
+          >
+            Next
           </button>
         </div>
       </div>
     </div>
   );
+
+  const page2 = (
+    <div className='modal-custom'>
+      <div className='modal-content-custom'>
+        <div className='modal-head'>
+          <h1 className='modal-title-custom'>Add A Recipe</h1>
+          <button
+            type='button'
+            className='btn-close'
+            aria-label='Close'
+            onClick={(e) => onClose(e)}
+          ></button>
+        </div>
+        <div className='modal-body-custom'>
+          <p className='ms-3'>What are the ingredients? (use bullet points)</p>
+          <form>
+            <Tiptap />
+          </form>
+        </div>
+        <div className='modal-footer-custom'>
+          <button
+            type='button'
+            className='btn btn-secondary'
+            onClick={(e) => onPrevPage(e)}
+          >
+            Back
+          </button>
+          <button
+            type='button'
+            className='btn btn-primary ms-4 px-4'
+            onClick={(e) => onNextPage(e)}
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  return <>{page === 1 ? page1 : page2}</>;
 }
 
 export default RecipeModal;

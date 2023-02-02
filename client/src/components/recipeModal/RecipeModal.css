@@ -39,3 +39,11 @@
   border-bottom: coral 2px solid;
   font-weight: 400;
 }
+
+.ProseMirror {
+  margin: 1rem;
+  background-color: #f3f3f3;
+  height: 200px;
+  padding: 0.7rem;
+  border-radius: 10px;
+}
