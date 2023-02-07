@@ -48,8 +48,6 @@ function Register() {
         dispatch(removeAlert());
       }, 3000);
     } else {
-      console.log("success");
-
       const newUser = {
         name,
         email,
@@ -75,6 +73,23 @@ function Register() {
         console.error(error.response.data);
         dispatch(registerFail());
       }
+
+      try {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+
+        const body = {
+          myRecipes: [{ title: "Add some recipes!" }],
+          likes: [0],
+        };
+
+        const res = await axios.post("/api/profile", body, config);
+
+        console.log(res.data);
+      } catch (error) {}
     }
   };
 

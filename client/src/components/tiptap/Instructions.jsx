@@ -4,7 +4,7 @@ import MenuBar from "./MenuBar";
 
 import "./Tiptap.css";
 
-const Tiptap = ({ state, setState }) => {
+const Instructions = ({ state, setState }) => {
   const editor = useEditor({
     extensions: [StarterKit],
     content: "<p>Enter details here</p>",
@@ -12,7 +12,7 @@ const Tiptap = ({ state, setState }) => {
       const html = editor.getHTML();
       setState({
         ...state,
-        ingredients: html,
+        instructions: html,
       });
     },
   });
@@ -25,4 +25,4 @@ const Tiptap = ({ state, setState }) => {
   );
 };
 
-export default Tiptap;
+export default Instructions;

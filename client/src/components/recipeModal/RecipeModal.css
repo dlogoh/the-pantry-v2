@@ -41,9 +41,12 @@
 }
 
 .ProseMirror {
-  margin: 1rem;
+  margin: 0 1rem 1rem 1rem;
   background-color: #f3f3f3;
   height: 200px;
   padding: 0.7rem;
   border-radius: 10px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  overflow: scroll;
 }

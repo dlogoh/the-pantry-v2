@@ -32,7 +32,7 @@ const Dashboard = () => {
   let displayLikes;
   let displayRecipes;
 
-  if (!loading) {
+  if (!loading && user.likes) {
     displayLikes = profile.likes.map((item) => {
       return (
         <li

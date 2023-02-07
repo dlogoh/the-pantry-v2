@@ -7,12 +7,31 @@ import {
   resetPage,
 } from "../../features/recipeModal/recipeModalSlice";
 import Tiptap from "../tiptap/Tiptap";
+import Instructions from "../tiptap/Instructions";
+
+import axios from "axios";
 
 import "./RecipeModal.css";
+import { useState } from "react";
 
 function RecipeModal() {
   const dispatch = useDispatch();
   const { page } = useSelector((state) => state.recipeModal);
+
+  const [formData, setFormData] = useState({
+    title: "",
+    category: "breakfast",
+    isPublic: "",
+    ingredients: "",
+    instructions: "",
+  });
+
+  console.log(formData);
+
+  const { title, category, isPublic, ingredients, instructions } = formData;
+
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onClose = (e) => {
     e.preventDefault();
@@ -31,6 +50,35 @@ function RecipeModal() {
     e.preventDefault();
 
     dispatch(prevPage());
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const body = {
+        recipe: {
+          title,
+          category,
+          isPublic,
+          ingredients,
+          instructions,
+        },
+      };
+
+      const res = await axios.post("/api/profile/myRecipes", body, config);
+
+      console.log(res.data);
+      dispatch(closeModal());
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   const page1 = (
@@ -56,6 +104,9 @@ function RecipeModal() {
                 type='text'
                 className='form-control w-75 ms-3'
                 id='title'
+                name='title'
+                value={title}
+                onChange={(e) => onChange(e)}
               />
             </div>
             <div className='mb-3 d-flex flex-column'>
@@ -65,6 +116,9 @@ function RecipeModal() {
               <select
                 name='category'
                 className='drop-down form-select ms-3 w-75'
+                id='category'
+                value={category}
+                onChange={(e) => onChange(e)}
               >
                 <option value='breakfast'>Breakfast</option>
                 <option value='lunch'>Lunch</option>
@@ -77,8 +131,9 @@ function RecipeModal() {
                 type='radio'
                 className='form-check-input mx-1'
                 id='public'
-                name='selector'
-                value='public'
+                name='isPublic'
+                value={true}
+                onChange={(e) => onChange(e)}
               />
               <label className='form-check-label me-5' htmlFor='public'>
                 Public
@@ -87,14 +142,14 @@ function RecipeModal() {
                 type='radio'
                 className='form-check-input mx-1'
                 id='private'
-                name='selector'
-                value='private'
+                name='isPublic'
+                value={false}
+                onChange={(e) => onChange(e)}
               />
               <label className='form-check-label' htmlFor='private'>
                 Private
               </label>
             </div>
-            {/* <Tiptap /> */}
           </form>
         </div>
         <div className='modal-footer-custom'>
@@ -130,9 +185,9 @@ function RecipeModal() {
           ></button>
         </div>
         <div className='modal-body-custom'>
-          <p className='ms-3'>What are the ingredients? (use bullet points)</p>
+          <p className='ms-3'>What are the ingredients?</p>
           <form>
-            <Tiptap />
+            <Tiptap state={formData} setState={setFormData} />
           </form>
         </div>
         <div className='modal-footer-custom'>
@@ -155,7 +210,51 @@ function RecipeModal() {
     </div>
   );
 
-  return <>{page === 1 ? page1 : page2}</>;
+  const page3 = (
+    <div className='modal-custom'>
+      <div className='modal-content-custom'>
+        <div className='modal-head'>
+          <h1 className='modal-title-custom'>Add A Recipe</h1>
+          <button
+            type='button'
+            className='btn-close'
+            aria-label='Close'
+            onClick={(e) => onClose(e)}
+          ></button>
+        </div>
+        <div className='modal-body-custom'>
+          <p className='ms-3'>What are the cooking instructions?</p>
+          <form>
+            <Instructions state={formData} setState={setFormData} />
+          </form>
+        </div>
+        <div className='modal-footer-custom'>
+          <button
+            type='button'
+            className='btn btn-secondary'
+            onClick={(e) => onPrevPage(e)}
+          >
+            Back
+          </button>
+          <button
+            type='button'
+            className='btn btn-primary ms-4 px-4'
+            onClick={(e) => onSubmit(e)}
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      {page === 1 && page1}
+      {page === 2 && page2}
+      {page === 3 && page3}
+    </>
+  );
 }
 
 export default RecipeModal;

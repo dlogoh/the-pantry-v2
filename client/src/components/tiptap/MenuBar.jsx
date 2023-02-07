@@ -1,10 +1,22 @@
 import React from "react";
 
 function MenuBar({ editor }) {
-  const handleClick = (e) => {
+  const handleBold = (e) => {
     e.preventDefault();
 
     editor.chain().focus().toggleBold().run();
+  };
+
+  const handleItalic = (e) => {
+    e.preventDefault();
+
+    editor.chain().focus().toggleItalic().run();
+  };
+
+  const handleBullet = (e) => {
+    e.preventDefault();
+
+    editor.chain().focus().toggleBulletList().run();
   };
 
   if (!editor) {
@@ -18,7 +30,21 @@ function MenuBar({ editor }) {
           editor.isActive("bold") ? "is-active" : ""
         }`}
         id={"1"}
-        onClick={(e) => handleClick(e)}
+        onClick={(e) => handleBold(e)}
+      ></button>
+      <button
+        className={`tip-btn tip-btn-italic ${
+          editor.isActive("italic") ? "is-active" : ""
+        }`}
+        id={"1"}
+        onClick={(e) => handleItalic(e)}
+      ></button>
+      <button
+        className={`tip-btn tip-btn-bullet ${
+          editor.isActive("bulletList") ? "is-active" : ""
+        }`}
+        id={"1"}
+        onClick={(e) => handleBullet(e)}
       ></button>
     </div>
   );

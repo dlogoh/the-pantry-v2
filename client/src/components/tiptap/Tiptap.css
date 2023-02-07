@@ -5,6 +5,9 @@
   margin: 0 1rem;
   margin-bottom: 0;
   border-radius: 5px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom: #333 1.5px solid;
   height: 2.5rem;
 }
 
@@ -25,7 +28,19 @@
   background-position: center;
 }
 
+.tip-btn-italic {
+  background-image: url("../../img/editor/italic.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.tip-btn-bullet {
+  background-image: url("../../img/editor/list-unordered.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .is-active {
-  background-color: #333;
+  background-color: #777;
   color: #fff;
 }

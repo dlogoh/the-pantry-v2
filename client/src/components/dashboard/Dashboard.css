@@ -5,6 +5,8 @@
   background-size: cover;
   height: 300px;
   border-radius: 5px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .dash-container {

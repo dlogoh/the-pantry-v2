@@ -5,12 +5,15 @@ import cardImg from "../img/card-img.jpg";
 import cardImg2 from "../img/card-img2.jpg";
 import cardImg3 from "../img/card-img3.jpg";
 
+import "./Home.css";
+
 export default function Home() {
   return (
     <div id='home'>
       <div className='container-fluid'>
         <h1 className='text-center mt-4'>
-          Welcome to <span className='text-primary'>The Pantry</span>
+          Welcome to{" "}
+          <span className='text-custom text-primary'>The Pantry</span>
         </h1>
         <h3 className='my-5 text-center'>
           Where you will never forget another recipe

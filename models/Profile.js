@@ -14,6 +14,15 @@ const ProfileSchema = new mongoose.Schema({
       category: {
         type: String,
       },
+      isPublic: {
+        type: String,
+      },
+      ingredients: {
+        type: String,
+      },
+      instructions: {
+        type: String,
+      },
       likes: {
         type: [],
       },

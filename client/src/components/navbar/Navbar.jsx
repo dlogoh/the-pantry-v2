@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../features/auth/authSlice";
+import { logout } from "../../features/auth/authSlice";
+
+import "./Navbar.css";
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -70,7 +72,7 @@ export default function Navbar() {
   return (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark opacity-75 sticky-top py-3'>
       <div className='container-fluid'>
-        <a className='navbar-brand text-primary ps-5' href='#!'>
+        <a className='text-primary ps-3 logo-custom' href='#!'>
           The Pantry
         </a>
         <button
