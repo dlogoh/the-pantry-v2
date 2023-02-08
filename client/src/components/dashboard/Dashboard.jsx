@@ -3,13 +3,17 @@ import { getCurrentProfile } from "../../features/profile/profile";
 import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import { loadUser } from "../../features/auth/auth";
-import { openModal } from "../../features/recipeModal/recipeModalSlice";
+import {
+  openModal,
+  resetPage,
+} from "../../features/recipeModal/recipeModalSlice";
 import RecipeModal from "../recipeModal/RecipeModal";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import "./Dashboard.css";
+import axios from "axios";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -27,6 +31,11 @@ const Dashboard = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
+
+    await axios.post(`/api/profile/myRecipes/${e.target.value}`);
+
+    dispatch(resetPage());
+    dispatch(getCurrentProfile());
   };
 
   let displayLikes;
@@ -59,12 +68,13 @@ const Dashboard = () => {
           className='list-group-item fs-5 d-flex align-items-center justify-content-between'
         >
           {item.title}
-          <button onClick={(e) => handleClick(e)} className='btn'>
-            <FontAwesomeIcon
-              icon={faTrashCan}
-              className='text-primary'
-              // onClick={(e) => handleClick(e)}
-            />
+          <button
+            onClick={(e) => handleClick(e)}
+            className='btn'
+            id={item._id}
+            value={item._id}
+          >
+            <FontAwesomeIcon icon={faTrashCan} className='text-primary' />
           </button>
         </li>
       );

@@ -106,7 +106,7 @@ router.post(
 // @route     DELETE api/profile/myRecipes/:id
 // @desc      Delete a recipe
 // @access    Private
-router.delete("/myRecipes/:id", auth, async (req, res) => {
+router.post("/myRecipes/:id", auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
 
@@ -116,8 +116,7 @@ router.delete("/myRecipes/:id", auth, async (req, res) => {
 
     profile.myRecipes.splice(removeIndex, 1);
 
-    console.log(profile);
-    // await profile.save();
+    await profile.save();
 
     res.status(200).send("Recipe removed");
   } catch (error) {
