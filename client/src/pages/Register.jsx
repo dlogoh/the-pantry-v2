@@ -78,18 +78,25 @@ function Register() {
         const config = {
           headers: {
             "Content-Type": "application/json",
+            "x-auth-token": localStorage.getItem("token"),
           },
         };
 
-        const body = {
-          myRecipes: [{ title: "Add some recipes!" }],
-          likes: [0],
+        const bodyText = {
+          recipe: {
+            title: "title",
+          },
         };
 
-        const res = await axios.post("/api/profile", body, config);
+        const body = JSON.stringify(bodyText);
+
+        const res = await axios.post("/api/profile/myRecipes", body, config);
 
         console.log(res.data);
-      } catch (error) {}
+      } catch (error) {
+        console.error(error.message);
+        console.log(error.message.data);
+      }
     }
   };
 

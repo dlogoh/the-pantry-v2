@@ -59,7 +59,7 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-// @route     GET api/profile
+// @route     GET api/profile/myRecipes
 // @desc      Get users recipes
 // @access    Private
 router.get("/myRecipes", auth, async (req, res) => {
@@ -75,7 +75,7 @@ router.get("/myRecipes", auth, async (req, res) => {
   }
 });
 
-// @route     POST api/profile
+// @route     POST api/profile/myRecipes
 // @desc      Add a recipe
 // @access    Private
 router.post(
@@ -102,6 +102,29 @@ router.post(
     }
   }
 );
+
+// @route     DELETE api/profile/myRecipes/:id
+// @desc      Delete a recipe
+// @access    Private
+router.delete("/myRecipes/:id", auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    const removeIndex = profile.myRecipes
+      .map((item) => item.id)
+      .indexOf(req.params.id);
+
+    profile.myRecipes.splice(removeIndex, 1);
+
+    console.log(profile);
+    // await profile.save();
+
+    res.status(200).send("Recipe removed");
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 // @route     GET api/profile
 // @desc      Get all profiles
@@ -159,26 +182,26 @@ router.delete("/", auth, async (req, res) => {
   }
 });
 
-// @route     DELETE api/profile/myRecipes/:recipe_id
+// @route     DELETE api/profile/myRecipes/:id
 // @desc      Delete users recipe
 // @access    Private
-router.delete("/myRecipes/:recipe_id", auth, async (req, res) => {
-  try {
-    const profile = await Profile.findOne({ user: req.user.id });
+// router.delete("/myRecipes/:id", auth, async (req, res) => {
+//   try {
+// const profile = await Profile.findOne({ user: req.user.id });
 
-    const removeIndex = profile.myRecipes
-      .map((item) => item.id)
-      .indexOf(req.params.recipe_id);
+// const removeIndex = profile.myRecipes
+//   .map((item) => item.id)
+//   .indexOf(req.params.id);
 
-    profile.myRecipes.splice(removeIndex, 1);
+//     profile.myRecipes.splice(removeIndex, 1);
 
-    await profile.save();
+//     await profile.save();
 
-    res.json(profile);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send(error.message);
-  }
-});
+//     res.json(profile);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send(error.message);
+//   }
+// });
 
 module.exports = router;

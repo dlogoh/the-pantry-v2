@@ -33,7 +33,7 @@ const ProfileSchema = new mongoose.Schema({
     },
   ],
   likes: {
-    type: [],
+    type: ["No Likes yet"],
   },
   date: {
     type: Date,

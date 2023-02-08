@@ -14,6 +14,8 @@ import axios from "axios";
 import "./RecipeModal.css";
 import { useState } from "react";
 
+import { getCurrentProfile } from "../../features/profile/profile";
+
 function RecipeModal() {
   const dispatch = useDispatch();
   const { page } = useSelector((state) => state.recipeModal);
@@ -25,8 +27,6 @@ function RecipeModal() {
     ingredients: "",
     instructions: "",
   });
-
-  console.log(formData);
 
   const { title, category, isPublic, ingredients, instructions } = formData;
 
@@ -76,6 +76,7 @@ function RecipeModal() {
 
       console.log(res.data);
       dispatch(closeModal());
+      dispatch(getCurrentProfile());
     } catch (error) {
       console.error(error.message);
     }

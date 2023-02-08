@@ -12,14 +12,14 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import "./Dashboard.css";
 
 const Dashboard = () => {
-  const [flip, setFlip] = useState(true);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCurrentProfile());
     dispatch(loadUser());
+    dispatch(getCurrentProfile());
   }, [dispatch]);
+
+  const [flip, setFlip] = useState(true);
 
   const { user } = useSelector((state) => state.auth);
   const { profile, loading } = useSelector((state) => state.profile);
@@ -32,26 +32,34 @@ const Dashboard = () => {
   let displayLikes;
   let displayRecipes;
 
-  if (!loading && user.likes) {
-    displayLikes = profile.likes.map((item) => {
-      return (
-        <li
-          key={item.toString()}
-          className='list-group-item fs-5 d-flex align-items-center justify-content-between'
-        >
-          {item}
+  if (!loading) {
+    if (!profile.likes) {
+      displayLikes = (
+        <li className='list-group-item fs-5 d-flex align-items-center justify-content-between'>
+          Liked recipes show here
         </li>
       );
-    });
+    } else {
+      displayLikes = profile.likes.map((item) => {
+        return (
+          <li
+            key={item.toString()}
+            className='list-group-item fs-5 d-flex align-items-center justify-content-between'
+          >
+            {item}
+          </li>
+        );
+      });
+    }
 
     displayRecipes = profile.myRecipes.map((item) => {
       return (
         <li
-          key={item.toString()}
+          key={item._id}
           className='list-group-item fs-5 d-flex align-items-center justify-content-between'
         >
-          {item}{" "}
-          <button onClick={(e) => handleClick(e)}>
+          {item.title}
+          <button onClick={(e) => handleClick(e)} className='btn'>
             <FontAwesomeIcon
               icon={faTrashCan}
               className='text-primary'
@@ -105,8 +113,8 @@ const Dashboard = () => {
             My Recipes
           </button>
         </div>
-        <div className='container'>
-          <ul className='list-group bg-primary mt-4'>
+        <div className='container-fluid h-75'>
+          <ul className='list-group mt-4 overflow-scroll h-100'>
             {flip ? displayLikes : displayRecipes}
           </ul>
         </div>
