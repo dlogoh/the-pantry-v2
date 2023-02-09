@@ -16,7 +16,7 @@ export default function Navbar() {
   const authLinks = (
     <ul className='navbar-nav'>
       <li className='nav-item'>
-        <Link to='/' className='nav-link active' aria-current='page'>
+        <Link to='/recipes' className='nav-link active' aria-current='page'>
           Home
         </Link>
       </li>

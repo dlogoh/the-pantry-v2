@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentProfile } from "../features/profile/profile";
 
 import cardImg from "../img/card-img.jpg";
 import cardImg2 from "../img/card-img2.jpg";
@@ -8,6 +10,13 @@ import cardImg3 from "../img/card-img3.jpg";
 import "./Home.css";
 
 export default function Home() {
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
+  if (isAuthenticated) {
+    dispatch(getCurrentProfile());
+  }
   return (
     <div id='home'>
       <div className='container-fluid'>

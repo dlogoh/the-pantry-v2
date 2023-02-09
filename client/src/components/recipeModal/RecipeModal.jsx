@@ -74,6 +74,10 @@ function RecipeModal() {
 
       const res = await axios.post("/api/profile/myRecipes", body, config);
 
+      if (isPublic === "true") {
+        await axios.post("/api/posts", body, config);
+      }
+
       console.log(res.data);
       dispatch(closeModal());
       dispatch(getCurrentProfile());

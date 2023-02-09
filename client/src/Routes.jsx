@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/routing/PrivateRoute";
+import Recipes from "./pages/Recipes";
 
 export default function AppRouter() {
   return (
@@ -62,6 +63,18 @@ export default function AppRouter() {
                 <PrivateRoute>
                   <Navbar />
                   <Dashboard />
+                  <Footer />
+                </PrivateRoute>
+              </>
+            }
+          />
+          <Route
+            path='/recipes'
+            element={
+              <>
+                <PrivateRoute>
+                  <Navbar />
+                  <Recipes />
                   <Footer />
                 </PrivateRoute>
               </>

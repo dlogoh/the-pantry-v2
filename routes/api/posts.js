@@ -12,7 +12,7 @@ const User = require("../../models/User");
 // @access    Private
 router.post(
   "/",
-  [auth, [check("text", "Text is required").not().isEmpty()]],
+  [auth, [check("recipe", "Recipe is required").not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -22,8 +22,10 @@ router.post(
     try {
       const user = await User.findById(req.user.id).select("-password");
 
+      const { recipe } = req.body;
+
       const newPost = new Post({
-        text: req.body.text,
+        recipe,
         name: user.name,
         avatar: user.avatar,
         user: req.user.id,
