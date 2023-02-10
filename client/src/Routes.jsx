@@ -10,6 +10,7 @@ import SignIn from "./pages/SignIn";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import Recipes from "./pages/Recipes";
+import Post from "./components/post/Post";
 
 export default function AppRouter() {
   return (
@@ -75,6 +76,18 @@ export default function AppRouter() {
                 <PrivateRoute>
                   <Navbar />
                   <Recipes />
+                  <Footer />
+                </PrivateRoute>
+              </>
+            }
+          />
+          <Route
+            path='/post'
+            element={
+              <>
+                <PrivateRoute>
+                  <Navbar />
+                  <Post />
                   <Footer />
                 </PrivateRoute>
               </>

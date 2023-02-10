@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { loadPost, resetPost } from "../../features/post/postSlice";
 
 const RecipeCard = () => {
   const [posts, setPosts] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function postFetch() {
@@ -10,16 +15,25 @@ const RecipeCard = () => {
       setPosts(post);
     }
     postFetch();
-  }, []);
+    dispatch(resetPost());
+  }, [dispatch]);
 
   const handleClick = async (e) => {
     e.preventDefault();
-    console.log(e.currentTarget.id);
     const value = e.currentTarget.id;
-
     const post = await axios.get(`/api/posts/${value}`);
 
-    console.log(post);
+    dispatch(
+      loadPost({
+        recipeId: post.data._id,
+        title: post.data.recipe.title,
+        category: post.data.recipe.category,
+        ingredients: post.data.recipe.ingredients,
+        instructions: post.data.recipe.instructions,
+        date: post.data.date,
+      })
+    );
+    navigate("/post");
   };
 
   if (posts.data) {
