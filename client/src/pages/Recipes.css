@@ -1,0 +1,10 @@
+.recipe-page {
+  height: 80vh;
+  overflow: scroll;
+}
+
+@media (min-width: 950px) {
+  .recipe-form {
+    width: 50% !important;
+  }
+}
