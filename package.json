@@ -5,13 +5,13 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run start",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build",
     "server": "nodemon server",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client \""
   },
   "engines": {
-    "node": "10.16.0"
+    "node": "16.17.1"
   },
   "repository": {
     "type": "git",
