@@ -70,7 +70,7 @@ export default function Navbar() {
   );
 
   return (
-    <nav className='navbar navbar-expand-lg navbar-dark bg-dark opacity-75 sticky-top py-3'>
+    <nav className='navbar navbar-expand-lg navbar-dark sticky-top py-3 nav-custom'>
       <div className='container-fluid'>
         <a className='text-primary ps-3 logo-custom' href='#!'>
           The Pantry

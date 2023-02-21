@@ -5,7 +5,7 @@ import "./Recipes.css";
 
 const Recipes = () => {
   return (
-    <div className='container-fluid mb-5 recipe-page'>
+    <div className='container-fluid mb-5 recipe-page overflow-hidden'>
       <div className='container-fluid d-flex flex-column justify-content-center align-items-center'>
         <h1 className='text-primary fs-1 py-3'>Recipes</h1>
         <select className='form-select mb-5 w-75 recipe-form'>
