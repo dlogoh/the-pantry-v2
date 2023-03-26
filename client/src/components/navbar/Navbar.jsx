@@ -16,12 +16,12 @@ export default function Navbar() {
   const authLinks = (
     <ul className='navbar-nav'>
       <li className='nav-item'>
-        <Link to='/recipes' className='nav-link active' aria-current='page'>
+        <Link to='/recipes' className='nav-link ' aria-current='page'>
           Home
         </Link>
       </li>
       <li className='nav-item'>
-        <Link to='/dashboard' className='nav-link active' aria-current='page'>
+        <Link to='/dashboard' className='nav-link' aria-current='page'>
           Dashboard
         </Link>
       </li>
